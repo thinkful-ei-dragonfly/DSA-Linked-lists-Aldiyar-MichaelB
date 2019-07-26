@@ -208,24 +208,79 @@ function main() {
   // console.log(display(SLL));
 
   function reverser(list) {
-    let current = list.head;
-    console.log('first node is',list.head.next);
-    list.head.next = null;
-    let last = current;
-    while (current.next !== null) {
-
-
-      current = current.next;
-      current.next = last;
-      last = current;
+    if (list == null) {
+      return null;
     }
-    console.log(list);
 
+    if (list.next == null) {
+      return list;
+    }
 
+    const secondElement = list.next;
+    list.next = null;
+    const reverseRest = reverer(secondElement);
+    secondElement.next = list;
+    return reverseRest;
   }
-  display(SLL);
-  console.log(reverser(SLL));
+  // console.log(reverser(SLL));
+
+  // function get3rdItem(list) {
+  //   let currNode = list.head;
+  //   while (currNode.next < 3) {
+  //     currNode = list.head.next;
+  //   }
+  //   return currNode;
+  // }
+
+  function thirdFromEnd(lst) {
+    let thirdEnd = lst.head;
+    let end = lst.head.next.next.next;
+    while(end !== null) {
+      thirdEnd = thirdEnd.next;
+      end = end.next;
+    }
+    return thirdEnd.value;
+  };
+  
+  // console.log(get3rdItem(SLL));
+  // console.log(thirdFromEnd(SLL));
+
+  function middle(list) {
+    let end = list.head;
+    let middle = list.head;
+
+    while (end !== null && end.next !== null) {
+      end = end.next.next;
+      middle = middle.next;
+    }
+    return middle.value;
+  }
+
+  // console.log(middle(SLL));
+
+  let CycleList = new LinkedList();
+
+  CycleList.insertFirst('first');
+  CycleList.insertLast('second');
+  CycleList.head.next.next = CycleList.head;
+
+  function cycleList(list) {
+    let fast = list.head;
+    let slow = list.head;
+    while (slow !== null && fast !== null && fast.next !== null) {
+      slow = slow.next;
+      fast = fast.next.next;
+      if (slow === fast) {
+        console.log('found cycle');
+        return;
+      }
+    }
+    console.log('no cycle found');
+  }
+
+  console.log(cycleList(CycleList));
 }
+
 
 
 
